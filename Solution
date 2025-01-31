@@ -1,2 +1,26 @@
 **Solution**
 
+# Filename: Assignment3Script.ps1
+# Assignment: ISEC 2022 - ASsignment 3 - Update Windows Firewall
+# Author: Alex Hendren
+# Date Created: 2025-1-31
+# Last Edited: 2025-1-31
+#---------------------------------------------------------------------
+
+#Setting variables
+$SERVER1 = "192.168.4.2"
+$UPDATESERVER = "192.168.4.7"
+$TECHSUPPORT1 = "192.168.4.5"
+#------------------------------------
+
+#Create NetFirewallRule named techsupportssh to allow incoming ssh traffic from techsupopprt to vm
+New-NetFirewallRule -DisplayName "techsupportssh" -Action Allow -Protocol TCP -Direction Inbound -LocalPort 22 -RemoteAddress $TECHSUPPORT1 
+#------------------------------------------------------------------------------------------------
+
+#Allow outgoing FTP traffic from VM to SERVER1
+New-NetFirewallRule -DisplayName "serverftp" -Action Allow -Protocol TCP -Direction Outbound -RemotePort 21 -RemoteAddress $Server1
+#-----------------------------------------------------------------------------------
+
+#Allow incoming FTP traffic from UPDATESERVER to vm
+New-NetFirewallRule -DisplayName "updateftp" -Action Allow -Protocol TCP -Direction Inbound -RemotePort 21 -RemoteAddress $UPDATESERVER
+
