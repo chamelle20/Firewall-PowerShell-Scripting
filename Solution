@@ -23,4 +23,11 @@ New-NetFirewallRule -DisplayName "serverftp" -Action Allow -Protocol TCP -Direct
 
 #Allow incoming FTP traffic from UPDATESERVER to vm
 New-NetFirewallRule -DisplayName "updateftp" -Action Allow -Protocol TCP -Direction Inbound -RemotePort 21 -RemoteAddress $UPDATESERVER
+#-------------------------------------------------------------------------------
 
+#Enable logging of allowed connections
+Set-NetFirewallProfile -Profile Domain,Public,Private -LogAllowed True -LogFileName "C:allowedconnectionlog.log"
+#----------------------------------------------------------------------------------
+
+#Let user know script ran
+Write-Host "Firewall rules successfully configured and logging is enabled"
